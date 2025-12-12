@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-md-7">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">IP Subnetting Calculator</h5>
+        <form action="{{ url_for('calculate') }}" method="post" class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">IP Address</label>
+            <input class="form-control" name="ip" placeholder="192.168.1.10" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Subnet Mask (dot-decimal)</label>
+            <input class="form-control" name="mask" placeholder="255.255.255.0" required>
+          </div>
+          <div class="col-12">
+            <button class="btn btn-primary">Calculate</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <small class="text-muted">Tip: you can also use CIDR mask like "24" — the mask field accepts dot-decimal or prefix (the code handles strict=False).</small>
+    </div>
+  </div>
+
+  <div class="col-md-5">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h6>Quick examples</h6>
+        <ul>
+          <li>192.168.1.10 / 255.255.255.0</li>
+          <li>10.0.0.5 / 255.255.0.0</li>
+          <li>172.16.5.1 / 255.255.255.192</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

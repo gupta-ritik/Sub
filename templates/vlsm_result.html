@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h4>VLSM Allocation Results for {{ base }}</h4>
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Required Hosts</th>
+              <th>Network/CIDR</th>
+              <th>Total Addr</th>
+              <th>Usable</th>
+              <th>First</th>
+              <th>Last</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for alloc in allocations %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ alloc.required_hosts }}</td>
+              <td>{{ alloc.network }}{{ alloc.cidr }}</td>
+              <td>{{ alloc.total_addresses }}</td>
+              <td>{{ alloc.usable_hosts }}</td>
+              <td>{{ alloc.first_host }}</td>
+              <td>{{ alloc.last_host }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <div class="mt-2">
+          <a href="{{ url_for('export_pdf_vlsm') }}" class="btn btn-outline-primary">Export PDF</a>
+          <a href="{{ url_for('vlsm') }}" class="btn btn-secondary">New VLSM</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h6>Notes</h6>
+        <ul>
+          <li>Subnets allocated largest-first to minimize fragmentation.</li>
+          <li>If allocation fails: increase base network size or reduce requirements.</li>
+          <li>Export to PDF for printing or sharing.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
